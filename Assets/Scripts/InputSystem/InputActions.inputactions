@@ -1,0 +1,109 @@
+{
+    "name": "InputActions",
+    "maps": [
+        {
+            "name": "Camera",
+            "id": "fc9b79f0-bd61-40c1-a53b-1f1d6e1eec6f",
+            "actions": [
+                {
+                    "name": "Movement",
+                    "type": "Button",
+                    "id": "e6840e68-1986-4dcb-ae52-426362e16f41",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Zoom",
+                    "type": "Button",
+                    "id": "f16ae73b-06a0-4d4a-9293-59b2bed61de6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "Horizontal",
+                    "id": "6f80dfe6-4090-4fa1-9dc6-843ca779cd6a",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "5da197ae-5f06-41d8-9842-7d42636a4533",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "9543d672-9880-4ca8-ac28-ef58d9b301e7",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Vertical",
+                    "id": "557831fe-b962-4440-bc20-908157b27a7a",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "d0c849d5-ca29-42d0-a306-e9ecc1cb9460",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "66afd47d-f8af-4f59-bad2-19a93761740b",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "8151e4d8-01e1-4dcd-ac01-9cc90dbe15ec",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
