@@ -1,29 +1,29 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(InventoryComponent))]
-public class PlayerController : Entity
+public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    private SantaController santaSelected;
+    private InputActions inputAction;
+
+    private void Awake()
+    {
+        inputAction = new InputActions();
+        inputAction.Enable();
+        inputAction.Player.Select.performed += ClickedOnClickableEntity;
+    }
+
+    private void ClickedOnClickableEntity(InputAction.CallbackContext obj)
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            
-        }
-    }
-
-    public override void OnPointerDown(PointerEventData eventData)
-    {
-        base.OnPointerDown(eventData);
-
+        
     }
 }

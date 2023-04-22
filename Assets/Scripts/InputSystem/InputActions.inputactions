@@ -6,7 +6,7 @@
             "id": "fc9b79f0-bd61-40c1-a53b-1f1d6e1eec6f",
             "actions": [
                 {
-                    "name": "Movement",
+                    "name": "MovementHorizontal",
                     "type": "Button",
                     "id": "e6840e68-1986-4dcb-ae52-426362e16f41",
                     "expectedControlType": "Button",
@@ -22,6 +22,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "TacticalView",
+                    "type": "Button",
+                    "id": "6dd117f0-755b-4ba2-acf0-117fda9365a4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MovementVertical",
+                    "type": "Button",
+                    "id": "9540216f-9544-477b-8113-d067999fd8ec",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MovementForward",
+                    "type": "Button",
+                    "id": "e1cd0e5d-d62b-4b22-8684-876b1ccc891a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -32,7 +59,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MovementHorizontal",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -43,7 +70,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MovementHorizontal",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -54,9 +81,31 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MovementHorizontal",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "8151e4d8-01e1-4dcd-ac01-9cc90dbe15ec",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "007f1d63-ce00-4470-a22c-f8395ac184e6",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TacticalView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "Vertical",
@@ -65,7 +114,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MovementForward",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -76,7 +125,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MovementForward",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -87,20 +136,103 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MovementForward",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "Altitude",
+                    "id": "a677550e-e646-4eff-b86c-aed43dedf382",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovementVertical",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "b5963d02-9673-4393-bb89-0ad6e15f4917",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovementVertical",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "ecc53b15-7c6f-41d4-877b-39afab772fd6",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovementVertical",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "Player",
+            "id": "26d041eb-a4c8-442e-b2e3-c07a1d267a4c",
+            "actions": [
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "1c6c9da9-3f1a-4baf-ab6d-1ffcacb32c2c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
                     "name": "",
-                    "id": "8151e4d8-01e1-4dcd-ac01-9cc90dbe15ec",
+                    "id": "d7b070c2-da50-4b75-8bf3-b621ab88a610",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "1a8edea9-7234-41e4-af8c-5905ae2164d3",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "cf216423-721b-4f80-9ea0-8123133dc6b1",
                     "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Zoom",
+                    "action": "Select",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "9427e9a6-82a1-41e5-9e58-aab7d00c6808",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class DetectionEnemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private EnemyController enemy;
+
+    private void Start()
     {
-        
+        enemy = GetComponentInParent<EnemyController>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.TryGetComponent(out Entity player))
+        {
+            //enemy.TryToAlertEveryone(player);
+            enemy.FoundPlayer(player);
+        }
     }
 }

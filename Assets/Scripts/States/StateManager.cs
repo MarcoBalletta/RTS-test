@@ -4,10 +4,10 @@ using UnityEngine;
 
 public abstract class StateManager : MonoBehaviour
 {
-    public State currentState;
-    public Dictionary<string, State> listOfStates;
+    [SerializeField] public State currentState;
+    public Dictionary<string, State> listOfStates = new Dictionary<string, State>();
 
-    private void Awake()
+    protected virtual void Awake()
     {
         InitializeStates();
     }
@@ -16,12 +16,12 @@ public abstract class StateManager : MonoBehaviour
 
     private void Update()
     {
-        currentState.OnUpdate();
+        currentState?.OnUpdate();
     }
 
     public void OnChangeState(string keyState)
     {
-        if (currentState.nameOfState == keyState) return;
+        if (currentState?.nameOfState == keyState) return;
         currentState?.OnExit();
         currentState = listOfStates[keyState];
         currentState?.OnEnter();
