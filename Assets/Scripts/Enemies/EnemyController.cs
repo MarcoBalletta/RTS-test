@@ -70,8 +70,8 @@ public class EnemyController : Entity
         float minBaseOffset = (baseOffset - deltaMinAltitude) >= minAltitude ? baseOffset - deltaMinAltitude : minAltitude;
         float maxBaseOffset = (baseOffset + deltaMaxAltitude) <= maxAltitude ? baseOffset + deltaMaxAltitude : maxAltitude;
         float randomBaseOffset = Random.Range(minBaseOffset, maxBaseOffset);
-        timingLerp = movingComponent.Agent.remainingDistance / speed * Time.deltaTime;
-        Debug.Log("Random offset: " + randomBaseOffset + " --- Actual offset : " + baseOffset + " --- timing lerp : " + timingLerp + " ---- distance : " + movingComponent.Agent.remainingDistance);
+        //timingLerp = movingComponent.Agent.remainingDistance / speed * Time.deltaTime;
+        timingLerp = Vector3.Distance(transform.position, new Vector3( movingComponent.Agent.destination.x, randomBaseOffset , movingComponent.Agent.destination.z)) / speed * Time.deltaTime;
         return randomBaseOffset;
     }
 

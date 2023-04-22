@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PickableItem : MonoBehaviour, IPickable
 {
-    public void Drop()
+    public virtual void Drop()
     {
     }
 
-    public void Pickup()
+    public virtual void Pickup()
     {
     }
 }

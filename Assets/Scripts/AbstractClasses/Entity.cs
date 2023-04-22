@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 //[RequireComponent(typeof(StateManager))]
 [RequireComponent(typeof(CommandHandler))]
 [RequireComponent(typeof(Renderer))]
-public abstract class Entity : MonoBehaviour, IPointerDownHandler
+public abstract class Entity : MonoBehaviour, IPointerDownHandler, IClickable
 {
 
     protected CapsuleCollider colliderEntity;
@@ -47,5 +47,10 @@ public abstract class Entity : MonoBehaviour, IPointerDownHandler
     protected virtual void BackToNormal()
     {
         entityRenderer.material.SetFloat(Constants.SHADER_BOOLEAN_HIGHLIGHT_NAME, 0.0f);
+    }
+
+    public virtual void ClickedOn(PlayerController player)
+    {
+        
     }
 }
