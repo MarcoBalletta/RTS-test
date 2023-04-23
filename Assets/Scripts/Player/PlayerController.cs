@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
             //    Destroy(trackerInstance.gameObject, 0.1f);
             //}
             santaSelected.onAddMovementCommand(position2DSelected, trackerInstance.transform.position.y, null);
+            ClearPositionValues();
             Destroy(trackerInstance.gameObject, 0.1f);
         }
     }
@@ -64,15 +65,22 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonUp(1) && santaSelected != null)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, 10000, layerClickRight, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(ray, out RaycastHit hit, 10000, layerClickRight, QueryTriggerInteraction.Collide))
             {
                 hit.collider.gameObject.TryGetComponent(out DestinationObject entityClickable);
+                Debug.Log("Right click : " + entityClickable);
                 if (entityClickable != null)
                 {
                     entityClickable.RightClicked(this, hit.point);
                 }
             }
         }
+    }
+
+    private void ClearPositionValues()
+    {
+        hasSelectedPositionGround = false;
+        santaSelected = null;
     }
 
     public void SetSantaSelected(SantaController selected)

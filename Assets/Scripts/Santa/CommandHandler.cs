@@ -26,6 +26,7 @@ public class CommandHandler : MonoBehaviour
         controller = GetComponent<SantaController>();
         controller.onAddMovementCommand += SetValuesPassed;
         controller.onAddMovementCommand += TryToAddCommand;
+        controller.onReachedDestination += RemoveCommandDone;
     }
 
     private void SetupCommands()
@@ -39,7 +40,8 @@ public class CommandHandler : MonoBehaviour
     public void AddCommand(Command command)
     {
         listOfCommands.Add(command);
-        CheckWhichCommandExecute();
+        Debug.Log("Added command " + listOfCommands.Count);
+        if(listOfCommands.Count< 2) CheckWhichCommandExecute();
     }
 
     private void SetValuesPassed(Vector3 position, float baseOffset, DestinationObject destinationObject)
@@ -68,6 +70,7 @@ public class CommandHandler : MonoBehaviour
     {
         listOfCommands.Clear();
         selectedCommand = null;
+        Debug.Log("Clear values: " + listOfCommands.Count);
     }
 
     private void ControlCommandsToAdd(DestinationObject destinationObject)
@@ -89,13 +92,27 @@ public class CommandHandler : MonoBehaviour
 
     private bool CheckIfAddOrOverwriteCommand()
     {
+        Debug.Log(Input.GetKey(appendCommandKey) + " --- value input ctrl");
         return Input.GetKey(appendCommandKey);
     }
 
     private void CheckWhichCommandExecute()
     {
-        if (selectedCommand != null) return;
-        selectedCommand = listOfCommands[0];
-        selectedCommand.Execute(controller, positionPassed, objectPassed, baseOffsetPassed);
+        //if (selectedCommand != null) return;
+        selectedCommand = CheckNewCommand();
+        selectedCommand?.Execute(controller, positionPassed, objectPassed, baseOffsetPassed);
+    }
+
+    private Command CheckNewCommand()
+    {
+        Debug.Log("Command result: " + (listOfCommands.Count > 0 ? listOfCommands[0] : null));
+        return listOfCommands.Count > 0 ? listOfCommands[0] : null;
+    }
+
+    private void RemoveCommandDone()
+    {
+        if(listOfCommands.Count > 0) listOfCommands.RemoveAt(0);
+        listOfCommands.TrimExcess();
+        CheckWhichCommandExecute();
     }
 }

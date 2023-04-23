@@ -7,8 +7,8 @@ public class MovingCommand : Command
 {
     public override void Execute(SantaController player, Vector3 destination, DestinationObject destinationObject, float baseOffset)
     {
-        player.onStartMoving();
-        player.onMoveTo(destination, baseOffset);
+        player.onStartMoving(destination, baseOffset, destinationObject);
+        //player.onMoveTo(destination, baseOffset);
     }
 
 }

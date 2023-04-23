@@ -42,8 +42,6 @@ public class MovementComponent : MonoBehaviour
     protected IEnumerator ReachDestination(Vector3 destination, float baseOffset)
     {
         agent.destination = destination;
-        Debug.Log("ReachingDestination");
-        var cube = Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cube), destination, Quaternion.identity);
         yield return StartCoroutine(AdjustOffsetCoroutine(baseOffset, controller.CalculateTimingLerpAdjustingHeight(baseOffset)));
     }
 }

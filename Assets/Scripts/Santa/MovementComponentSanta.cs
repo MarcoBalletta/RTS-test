@@ -9,15 +9,22 @@ public class MovementComponentSanta : MovementComponent
 
     protected override void OnEnable()
     {
-        base.OnEnable();
         controller = GetComponent<SantaController>();
+        base.OnEnable();
+        controller.onMoveTo += ReachDestination;
+        (controller as SantaController).onStartMoving += MoveToDestination;
         //(controller as SantaController).onStartMoving
     }
 
-    private void Start()
+    private void MoveToDestination(Vector3 position, float baseOffset, DestinationObject clickedEntity)
     {
-        //controller.onAddMovementCommand += 
+        StartCoroutine(ReachDestinationSet(position, baseOffset, clickedEntity));
     }
 
-
+    private IEnumerator ReachDestinationSet(Vector3 position, float baseOffset, DestinationObject clickedEntity)
+    {
+        yield return controller.onMoveTo(position, baseOffset);
+        Debug.Log("ReachedDestination");
+        (controller as SantaController).onReachedDestination();
+    }
 }

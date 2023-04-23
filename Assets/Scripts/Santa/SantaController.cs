@@ -15,8 +15,11 @@ public class SantaController : Entity
     public delegate void OnAddMovementCommand(Vector3 position, float baseOffset, DestinationObject clickedEntity);
     public OnAddMovementCommand onAddMovementCommand;
 
-    public delegate void OnStartMoving();
+    public delegate void OnStartMoving(Vector3 position, float baseOffset, DestinationObject clickedEntity);
     public OnStartMoving onStartMoving;
+
+    public delegate void ReachedDestination();
+    public ReachedDestination onReachedDestination;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -45,5 +48,24 @@ public class SantaController : Entity
         if(GameManager.instance?.onSantaSelectedInfos != null) GameManager.instance?.onSantaSelectedInfos(this);
     }
 
+    public void CheckGiftForBuilding(Building building)
+    {
+        foreach(var item in inventoryComponent.items)
+        {
+            if(item is PickableItem && building.CheckIfItemIsInListItemsToDeliver(item))
+            {
+                inventoryComponent.DropItem(item);
+                building.RemoveItemFromList(item);
+            }
+        }
+    }
 
+    public void PickupItem(PickableItem item)
+    {
+        if (inventoryComponent.CanPickup())
+        {
+            inventoryComponent.PickupItem(item);
+            item.gameObject.SetActive(false);
+        }
+    }
 }

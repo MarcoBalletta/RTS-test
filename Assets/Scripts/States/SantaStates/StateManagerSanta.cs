@@ -15,7 +15,7 @@ public class StateManagerSanta : StateManager
 
     private void OnEnable()
     {
-        controller.onStartMoving += StartMoving;
+        controller.onStartMoving += MoveToDestinationStateChange;
         OnChangeState(Constants.IDLE_STATE);
     }
 
@@ -26,8 +26,11 @@ public class StateManagerSanta : StateManager
         listOfStates.Add(Constants.PICKING_STATE, new PickingState(this));
     }
 
-    private void StartMoving()
+    private void MoveToDestinationStateChange(Vector3 position, float baseOffset, DestinationObject clickedEntity)
     {
         OnChangeState(Constants.MOVING_STATE);
+        //StartCoroutine(ReachDestination(position, baseOffset, clickedEntity));
     }
+
+
 }

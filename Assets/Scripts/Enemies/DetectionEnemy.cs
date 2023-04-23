@@ -16,6 +16,7 @@ public class DetectionEnemy : MonoBehaviour
         if (other.TryGetComponent(out Entity player))
         {
             //enemy.TryToAlertEveryone(player);
+            Debug.Log("Found player");
             enemy.FoundPlayer(player);
         }
     }

@@ -24,11 +24,15 @@ public abstract class Entity : MonoBehaviour, IPointerDownHandler, ILeftClickabl
     public delegate IEnumerator MoveTo(Vector3 destination, float baseOffset);
     public MoveTo onMoveTo;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         CheckOrAddComponent(out movingComponent);
         CheckOrAddComponent(out colliderEntity);
         CheckOrAddComponent(out rigidbodyEntity);
+    }
+
+    protected virtual void Start()
+    {
         GameManager.instance.onTacticalView += Highlight;
         GameManager.instance.onFreeState += BackToNormal;
     }

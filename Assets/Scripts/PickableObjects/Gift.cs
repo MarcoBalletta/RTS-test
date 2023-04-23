@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gift : PickableItem
+public class Gift : PickableItem, ILeftClickable
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public override void EntityArrivedAtDestinationObject(SantaController santa)
     {
-        
+        base.EntityArrivedAtDestinationObject(santa);
+        //santa.
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void LeftClicked(PlayerController player, Vector3 clickPosition)
     {
-        
     }
 }
