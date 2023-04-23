@@ -29,6 +29,7 @@ public abstract class Entity : MonoBehaviour, IPointerDownHandler, ILeftClickabl
         CheckOrAddComponent(out movingComponent);
         CheckOrAddComponent(out colliderEntity);
         CheckOrAddComponent(out rigidbodyEntity);
+        movingComponent.Agent.baseOffset = transform.position.y;
     }
 
     protected virtual void Start()

@@ -11,5 +11,11 @@ public class LevelSO : ScriptableObject
 [System.Serializable]
 public class LevelData
 {
-    public int number;
+    public uint numberIndex;
+    public uint befanasInGameNumber;
+    public uint santasInGameNumber;
+    public uint giftsInGameNumber;
+    public uint housesInGameNumber;
+    public float time;
+
 }

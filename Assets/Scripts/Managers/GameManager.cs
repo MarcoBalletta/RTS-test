@@ -28,6 +28,8 @@ public class GameManager : PersistentSingleton<GameManager>
     [SerializeField]private LevelData levelDataSelected;
     private string pathLevelDataFolder = "LevelDataFolder/Level";
 
+    public LevelData LevelDataSelected { get => levelDataSelected; }
+
     public void SetLevelDataIndex(int number)
     {
         levelDataIndex = number;
