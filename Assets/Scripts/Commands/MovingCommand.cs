@@ -5,9 +5,10 @@ using UnityEngine.InputSystem;
 
 public class MovingCommand : Command
 {
-    public override void Execute(SantaController player, Vector3 destination)
+    public override void Execute(SantaController player, Vector3 destination, DestinationObject destinationObject, float baseOffset)
     {
-        player.onMoveTo(destination);
+        player.onStartMoving();
+        player.onMoveTo(destination, baseOffset);
     }
 
 }

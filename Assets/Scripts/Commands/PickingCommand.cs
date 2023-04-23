@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickingCommand : MonoBehaviour
+public class PickingCommand : Command
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Execute(SantaController player, Vector3 destination, DestinationObject destinationObject, float baseOffset)
     {
-        
+        Debug.Log("Picking");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

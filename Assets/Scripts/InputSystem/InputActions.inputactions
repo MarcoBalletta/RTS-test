@@ -180,9 +180,18 @@
             "id": "26d041eb-a4c8-442e-b2e3-c07a1d267a4c",
             "actions": [
                 {
-                    "name": "Select",
+                    "name": "SelectLeftClick",
                     "type": "Button",
                     "id": "1c6c9da9-3f1a-4baf-ab6d-1ffcacb32c2c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectRightClick",
+                    "type": "Button",
+                    "id": "e7c8a4e6-e329-4fd4-ba49-7fd8822bc8f5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -197,42 +206,20 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Select",
+                    "action": "SelectLeftClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "One Modifier",
-                    "id": "1a8edea9-7234-41e4-af8c-5905ae2164d3",
-                    "path": "OneModifier",
+                    "name": "",
+                    "id": "d45baf2b-1699-4569-96dd-831238520082",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Select",
-                    "isComposite": true,
+                    "action": "SelectRightClick",
+                    "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "cf216423-721b-4f80-9ea0-8123133dc6b1",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Select",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "9427e9a6-82a1-41e5-9e58-aab7d00c6808",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Select",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 }
             ]
         }

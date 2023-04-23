@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public abstract class Command
 {
-    public abstract void Execute(SantaController player, Vector3 destination);
+    public abstract void Execute(SantaController player, Vector3 destination, DestinationObject destinationObject, float baseOffset);
 }
 
 [System.Serializable]

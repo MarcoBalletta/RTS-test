@@ -20,5 +20,6 @@ public class MovingState : State
     }
     public override void OnUpdate()
     {
+
     }
 }

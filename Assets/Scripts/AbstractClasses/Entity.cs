@@ -7,25 +7,28 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(Rigidbody))]
 //[RequireComponent(typeof(StateManager))]
-[RequireComponent(typeof(CommandHandler))]
 [RequireComponent(typeof(Renderer))]
-public abstract class Entity : MonoBehaviour, IPointerDownHandler, IClickable
+[RequireComponent(typeof(MovementComponent))]
+public abstract class Entity : MonoBehaviour, IPointerDownHandler, ILeftClickable
 {
 
     protected CapsuleCollider colliderEntity;
     protected Rigidbody rigidbodyEntity;
-    protected CommandHandler commandHandler;
+    protected MovementComponent movingComponent;
+
     [SerializeField] protected float maxAltitude;
     [SerializeField] protected float minAltitude;
-    [SerializeField] protected float deltaMinAltitude;
-    [SerializeField] protected float deltaMaxAltitude;
     [SerializeField] protected float speed;
     [SerializeField] protected Renderer entityRenderer;
-    public delegate void MoveTo(Vector3 destination);
+    
+    public delegate IEnumerator MoveTo(Vector3 destination, float baseOffset);
     public MoveTo onMoveTo;
 
-    private void Start()
+    protected virtual void Start()
     {
+        CheckOrAddComponent(out movingComponent);
+        CheckOrAddComponent(out colliderEntity);
+        CheckOrAddComponent(out rigidbodyEntity);
         GameManager.instance.onTacticalView += Highlight;
         GameManager.instance.onFreeState += BackToNormal;
     }
@@ -49,7 +52,12 @@ public abstract class Entity : MonoBehaviour, IPointerDownHandler, IClickable
         entityRenderer.material.SetFloat(Constants.SHADER_BOOLEAN_HIGHLIGHT_NAME, 0.0f);
     }
 
-    public virtual void ClickedOn(PlayerController player)
+    public float CalculateTimingLerpAdjustingHeight(float baseOffset)
+    {
+        return Vector3.Distance(transform.position, new Vector3(movingComponent.Agent.destination.x, baseOffset, movingComponent.Agent.destination.z)) / speed * Time.deltaTime;
+    }
+
+    public virtual void LeftClicked(PlayerController player, Vector3 position)
     {
         
     }

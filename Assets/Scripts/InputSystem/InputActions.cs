@@ -202,9 +202,18 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
             ""id"": ""26d041eb-a4c8-442e-b2e3-c07a1d267a4c"",
             ""actions"": [
                 {
-                    ""name"": ""Select"",
+                    ""name"": ""SelectLeftClick"",
                     ""type"": ""Button"",
                     ""id"": ""1c6c9da9-3f1a-4baf-ab6d-1ffcacb32c2c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectRightClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""e7c8a4e6-e329-4fd4-ba49-7fd8822bc8f5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -219,42 +228,20 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Select"",
+                    ""action"": ""SelectLeftClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""1a8edea9-7234-41e4-af8c-5905ae2164d3"",
-                    ""path"": ""OneModifier"",
+                    ""name"": """",
+                    ""id"": ""d45baf2b-1699-4569-96dd-831238520082"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Select"",
-                    ""isComposite"": true,
+                    ""action"": ""SelectRightClick"",
+                    ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""cf216423-721b-4f80-9ea0-8123133dc6b1"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Select"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""9427e9a6-82a1-41e5-9e58-aab7d00c6808"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Select"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -270,7 +257,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Camera_MovementForward = m_Camera.FindAction("MovementForward", throwIfNotFound: true);
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Select = m_Player.FindAction("Select", throwIfNotFound: true);
+        m_Player_SelectLeftClick = m_Player.FindAction("SelectLeftClick", throwIfNotFound: true);
+        m_Player_SelectRightClick = m_Player.FindAction("SelectRightClick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -395,12 +383,14 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
-    private readonly InputAction m_Player_Select;
+    private readonly InputAction m_Player_SelectLeftClick;
+    private readonly InputAction m_Player_SelectRightClick;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
         public PlayerActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Select => m_Wrapper.m_Player_Select;
+        public InputAction @SelectLeftClick => m_Wrapper.m_Player_SelectLeftClick;
+        public InputAction @SelectRightClick => m_Wrapper.m_Player_SelectRightClick;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -410,16 +400,22 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
-                @Select.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
-                @Select.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
-                @Select.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
+                @SelectLeftClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectLeftClick;
+                @SelectLeftClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectLeftClick;
+                @SelectLeftClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectLeftClick;
+                @SelectRightClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectRightClick;
+                @SelectRightClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectRightClick;
+                @SelectRightClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectRightClick;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Select.started += instance.OnSelect;
-                @Select.performed += instance.OnSelect;
-                @Select.canceled += instance.OnSelect;
+                @SelectLeftClick.started += instance.OnSelectLeftClick;
+                @SelectLeftClick.performed += instance.OnSelectLeftClick;
+                @SelectLeftClick.canceled += instance.OnSelectLeftClick;
+                @SelectRightClick.started += instance.OnSelectRightClick;
+                @SelectRightClick.performed += instance.OnSelectRightClick;
+                @SelectRightClick.canceled += instance.OnSelectRightClick;
             }
         }
     }
@@ -434,6 +430,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     }
     public interface IPlayerActions
     {
-        void OnSelect(InputAction.CallbackContext context);
+        void OnSelectLeftClick(InputAction.CallbackContext context);
+        void OnSelectRightClick(InputAction.CallbackContext context);
     }
 }

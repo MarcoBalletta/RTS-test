@@ -13,6 +13,8 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float speedZ;
     [SerializeField] private float sensitivityX;
     [SerializeField] private float sensitivityY;
+    [SerializeField] private float distanceZoomOut;
+    [SerializeField] private float zoomOutSpeed;
 
     private float velocityX;
     private float velocityY;
@@ -38,8 +40,8 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(stateManagerCamera.currentState?.nameOfState == Constants.FREE_STATE_STATE)
-        {
+        //if(stateManagerCamera.currentState?.nameOfState == Constants.FREE_STATE_STATE)
+        //{
             velocityX = inputActions.Camera.MovementHorizontal.ReadValue<float>();
             velocityZ = inputActions.Camera.MovementForward.ReadValue<float>();
             velocityY = inputActions.Camera.MovementVertical.ReadValue<float>();
@@ -51,17 +53,17 @@ public class CameraMovement : MonoBehaviour
             rotationY = sensitivityY * Input.GetAxis("Mouse X");
             currentRotation.y += rotationY;
             cameraGame.transform.rotation = Quaternion.Euler(currentRotation.x, currentRotation.y, 0);
-        }
+        //}
     }
 
     private void FreeStateCursorMode()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void TactivalViewStateCursorMode()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        ZoomOut();
     }
 
     private void ToggleStateCamera(InputAction.CallbackContext context)
@@ -73,6 +75,21 @@ public class CameraMovement : MonoBehaviour
         else
         {
             stateManagerCamera.OnChangeState(Constants.FREE_STATE_STATE);
+        }
+    }
+
+    private void ZoomOut()
+    {
+        StartCoroutine(ZoomOutCoroutine());
+    }
+
+    private IEnumerator ZoomOutCoroutine()
+    {
+        while(Vector3.Distance(Vector3.zero, transform.position) < distanceZoomOut)
+        {
+            Debug.Log("zooming out");
+            transform.position = Vector3.Lerp(transform.position, transform.position + transform.forward * (-1), zoomOutSpeed);
+            yield return new WaitForSeconds(Time.deltaTime);
         }
     }
 }
