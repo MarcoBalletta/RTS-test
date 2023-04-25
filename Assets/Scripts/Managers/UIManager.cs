@@ -14,10 +14,13 @@ public class UIManager : MonoBehaviour
     public GameObject inventoryPanel;
     public GiftIcon giftIconPrefab;
     private List<PickableItem> listItemsInventory = new List<PickableItem>();
+    [SerializeField] private Button returnToMenuButton;
+
     private void OnEnable()
     {
         GameManager.instance.onUpdateTimer += UpdateTimer;
         GameManager.instance.onStartGame += StartGame;
+        GameManager.instance.onStartGame += AddListenerToButton;
         GameManager.instance.onEndGame += EndGame;
         GameManager.instance.onBefanaCaughtSanta += BefanaCaughtSanta;
         GameManager.instance.onGiftPicked += GiftPicked;
@@ -30,6 +33,11 @@ public class UIManager : MonoBehaviour
     private void UpdateTimer(float value)
     {
         timerText.text = (int)value / 60 + " : " + (int)value % 60;
+    }
+
+    private void AddListenerToButton()
+    {
+        returnToMenuButton.onClick.AddListener(() => GameManager.instance.ReturnToMenu());
     }
 
     private void EndGame(bool victory)

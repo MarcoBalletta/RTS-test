@@ -712,6 +712,7 @@ MonoBehaviour:
   descriptionTextSocket: {fileID: 1004174211}
   inventoryPanel: {fileID: 207115860}
   giftIconPrefab: {fileID: -1190366101703984315, guid: 9a5bfbb7c110592488030444db595442, type: 3}
+  returnToMenuButton: {fileID: 1556393733}
 --- !u!1 &636020986
 GameObject:
   m_ObjectHideFlags: 0
