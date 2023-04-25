@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Level1
   m_EditorClassIdentifier: 
   data:
-    numberIndex: 0
+    numberIndex: 1
     befanasInGameNumber: 3
-    santasInGameNumber: 0
-    giftsInGameNumber: 0
-    minGiftsToDeliver: 0
-    housesInGameNumber: 0
-    time: 0
+    santasInGameNumber: 3
+    giftsInGameNumber: 20
+    minGiftsToDeliver: 5
+    weightFromEachGift: 0.2
+    housesInGameNumber: 10
+    time: 600

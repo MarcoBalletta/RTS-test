@@ -30,7 +30,10 @@ public class MovementComponentSanta : MovementComponent
 
     private IEnumerator ReachDestinationSet(Vector3 position, float baseOffset, DestinationObject clickedEntity)
     {
-        yield return controller.onMoveTo(position, baseOffset);
+        Debug.Log("ReachingDestination");
+        //yield return controller.onMoveTo(position, baseOffset);
+        agent.destination = position;
+        yield return StartCoroutine(AdjustOffsetCoroutine(baseOffset, controller.CalculateTimingLerpAdjustingHeight(baseOffset)));
         Debug.Log("ReachedDestination");
         (controller as SantaController).onReachedDestination();
     }

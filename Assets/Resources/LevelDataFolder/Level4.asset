@@ -10,7 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cee045d55b1945c46923702730ad1e20, type: 3}
-  m_Name: Level3 3
+  m_Name: Level4
   m_EditorClassIdentifier: 
   data:
-    number: 3
+    numberIndex: 4
+    befanasInGameNumber: 3
+    santasInGameNumber: 3
+    giftsInGameNumber: 20
+    minGiftsToDeliver: 5
+    weightFromEachGift: 0.2
+    housesInGameNumber: 10
+    time: 600

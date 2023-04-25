@@ -16,7 +16,7 @@ public static class Constants
     public const string SHADER_BOOLEAN_HIGHLIGHT_NAME = "_ActivateEffect";
 
     public const string SCENE_GAME_NAME = "Game";
-    public const string MENU_GAME_NAME = "Menu";
+    public const string SCENE_MENU_NAME = "Menu";
 
     public const string UI_START_GAME_TEXT = "Start!";
     public const string UI_BEFANA_CAUGHT_SANTA_TEXT = "Befana caught a santa!";

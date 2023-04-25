@@ -14,7 +14,7 @@ public class GameManager : PersistentSingleton<GameManager>
     private int levelDataIndex;
     [SerializeField]private float highlightInfosTime;
     [SerializeField]private float inventoryPanelShowTime;
-    [SerializeField]private LevelData levelDataSelected = new LevelData(1,0,1,1,1,1,240);
+    private LevelData levelDataSelected;
     private string pathLevelDataFolder = "LevelDataFolder/Level";
 
     private uint giftsDelivered;
@@ -71,16 +71,22 @@ public class GameManager : PersistentSingleton<GameManager>
         onBefanaCaughtSanta += DecreaseSanta;
     }
 
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene(Constants.SCENE_MENU_NAME);
+    }
+
     private void Start()
     {
         SceneManager.sceneLoaded += InitializeGameScene;
-        onStartGame();
+        //onStartGame();
     }
 
     public void SetLevelDataIndex(int number)
     {
         levelDataIndex = number;
         levelDataSelected = Resources.Load<LevelSO>(pathLevelDataFolder+levelDataIndex.ToString()).data;
+        santasAvailable = levelDataSelected.santasInGameNumber;
     }
 
     public void StartGame()
@@ -181,7 +187,7 @@ public class GameManager : PersistentSingleton<GameManager>
     private IEnumerator StartTimerRoutine()
     {
         Debug.Log("StartTimer");
-        float actualTimer = levelDataSelected.time;
+        var actualTimer = levelDataSelected.time;
         while(actualTimer > 0)
         {
             onUpdateTimer(actualTimer);
@@ -206,7 +212,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
     private void CheckIfSantasAreAlive()
     {
-        if (santasAvailable <= 0) onEndGame(false);
+        if (santasAvailable <= 0) onEndGame(CheckIfMinimumGiftsAreDelivered());
     }
 
     public bool CheckIfMinimumGiftsAreDelivered()

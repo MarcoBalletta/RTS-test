@@ -8,8 +8,9 @@ public abstract class DestinationObject : MonoBehaviour, IRightClickableUp
     [SerializeField] ECommandType commandType;
     [SerializeField] private Transform destinationTransform;
     [SerializeField] protected Renderer entityRenderer;
+    [SerializeField] protected Coroutine highlightCoroutine;
 
-    private void Start()
+    protected virtual void Start()
     {
         GameManager.instance.onTacticalView += Highlight;
         GameManager.instance.onFreeState += BackToNormal;
@@ -26,6 +27,11 @@ public abstract class DestinationObject : MonoBehaviour, IRightClickableUp
 
     protected virtual void Highlight()
     {
+        if (highlightCoroutine != null) 
+        { 
+            StopCoroutine(highlightCoroutine);
+            highlightCoroutine = null;
+        } 
         entityRenderer.material.SetFloat(Constants.SHADER_BOOLEAN_HIGHLIGHT_NAME, 1f);
     }
 
@@ -37,7 +43,7 @@ public abstract class DestinationObject : MonoBehaviour, IRightClickableUp
     public void TemporaryHighlight()
     {
         Debug.Log("Debug Temporary");
-        if (entityRenderer.material.GetFloat(Constants.SHADER_BOOLEAN_HIGHLIGHT_NAME) == 0) StartCoroutine(CoroutineHighlight());
+        if (entityRenderer.material.GetFloat(Constants.SHADER_BOOLEAN_HIGHLIGHT_NAME) == 0) highlightCoroutine = StartCoroutine(CoroutineHighlight());
     }
 
     private IEnumerator CoroutineHighlight()
@@ -45,6 +51,13 @@ public abstract class DestinationObject : MonoBehaviour, IRightClickableUp
         Highlight();
         yield return new WaitForSeconds(GameManager.instance.HighlightInfosTime);
         BackToNormal();
+        highlightCoroutine = null;
+    }
+
+    protected virtual void OnDestroy()
+    {
+        GameManager.instance.onTacticalView -= Highlight;
+        GameManager.instance.onFreeState -= BackToNormal;
     }
 
     public abstract void EntityArrivedAtDestinationObject(SantaController santa);

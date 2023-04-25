@@ -15,8 +15,10 @@ public class LevelData
     [Min (3)]
     public uint befanasInGameNumber;
     public uint santasInGameNumber;
+    [Min (20)]
     public uint giftsInGameNumber;
     public uint minGiftsToDeliver;
+    public float weightFromEachGift;
     [Min(10)]
     public uint housesInGameNumber;
     public float time;

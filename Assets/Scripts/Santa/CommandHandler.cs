@@ -17,6 +17,8 @@ public class CommandHandler : MonoBehaviour
     private DeliveringCommand delivering;
     private SantaController controller;
 
+    public List<Command> ListOfCommands { get => listOfCommands;}
+
     private void Awake()
     {
         SetupCommands();
@@ -32,7 +34,7 @@ public class CommandHandler : MonoBehaviour
     private void SetupCommands()
     {
         idle = new IdleCommand();
-        moving = new MovingCommand();
+        //moving = new MovingCommand();
         picking = new PickingCommand();
         delivering = new DeliveringCommand();
     }
@@ -75,15 +77,21 @@ public class CommandHandler : MonoBehaviour
 
     private void ControlCommandsToAdd(DestinationObject destinationObject)
     {
+        moving = new MovingCommand();
+        moving.Setup(controller, positionPassed, objectPassed, baseOffsetPassed, GetStartPositionCommandMovement());
         AddCommand(moving);
         if (destinationObject != null)
         {
             switch (destinationObject.CommandType)
             {
                 case ECommandType.picking:
+                    picking = new PickingCommand();
+                    picking.Setup(controller, positionPassed, objectPassed, baseOffsetPassed, GetStartPositionCommandMovement());
                     AddCommand(picking);
                     break;
                 case ECommandType.delivering:
+                    delivering = new DeliveringCommand();
+                    delivering.Setup(controller, positionPassed, objectPassed, baseOffsetPassed, GetStartPositionCommandMovement());
                     AddCommand(delivering);
                     break;
             }
@@ -100,7 +108,7 @@ public class CommandHandler : MonoBehaviour
     {
         //if (selectedCommand != null) return;
         selectedCommand = CheckNewCommand();
-        selectedCommand?.Execute(controller, positionPassed, objectPassed, baseOffsetPassed);
+        selectedCommand?.Execute(selectedCommand.Santa, selectedCommand.DestinationPosition, selectedCommand.ObjectPassed, selectedCommand.BaseOffset);
     }
 
     private Command CheckNewCommand()
@@ -114,5 +122,26 @@ public class CommandHandler : MonoBehaviour
         if(listOfCommands.Count > 0) listOfCommands.RemoveAt(0);
         listOfCommands.TrimExcess();
         CheckWhichCommandExecute();
+    }
+
+    private Vector3 GetStartPositionCommandMovement()
+    {
+        bool lastMovementFound = false;
+        Vector3 lastPathPosition = controller.transform.position;
+        int i = listOfCommands.Count - 1;
+        do
+        {
+            if(listOfCommands.Count == 0)
+            {
+                lastMovementFound = true;
+                lastPathPosition = new Vector3( controller.transform.position.x, controller.GetBaseOffset(), controller.transform.position.z);
+            }else if(listOfCommands[i] is MovingCommand)
+            {
+                lastMovementFound = true;
+                lastPathPosition = listOfCommands[i].DestinationPosition;
+            }
+            else i--;
+        } while (!lastMovementFound);
+        return lastPathPosition;
     }
 }

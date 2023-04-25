@@ -13,15 +13,17 @@ public class UIManager : MonoBehaviour
     public Transform descriptionTextSocket;
     public GameObject inventoryPanel;
     public GiftIcon giftIconPrefab;
-
+    private List<PickableItem> listItemsInventory = new List<PickableItem>();
     private void OnEnable()
     {
         GameManager.instance.onUpdateTimer += UpdateTimer;
-        GameManager.instance.onStartGame += 
+        GameManager.instance.onStartGame += StartGame;
         GameManager.instance.onEndGame += EndGame;
         GameManager.instance.onBefanaCaughtSanta += BefanaCaughtSanta;
         GameManager.instance.onGiftPicked += GiftPicked;
+        GameManager.instance.onGiftPicked += UpdateSantaInventory;
         GameManager.instance.onGiftDelivered += GiftDelivered;
+        GameManager.instance.onGiftDelivered += UpdateSantaInventory;
         GameManager.instance.onSantaSelectedInfos += ShowSantaInfos;
     }
 
@@ -51,7 +53,7 @@ public class UIManager : MonoBehaviour
         ShowInfoText(Constants.UI_BEFANA_CAUGHT_SANTA_TEXT);
     }
 
-    private void StartGame(Entity santa, EnemyController befana)
+    private void StartGame()
     {
         ShowInfoText(Constants.UI_START_GAME_TEXT);
     }
@@ -74,13 +76,25 @@ public class UIManager : MonoBehaviour
 
     private void ShowSantaInfos(SantaController santa)
     {
-        if (inventoryPanel.activeInHierarchy) return;
-        foreach (var item in santa.GetInventoryItems())
+        //if (inventoryPanel.activeInHierarchy) return;
+        listItemsInventory = santa.GetInventoryItems();
+        UpdateSantaInventory();
+        //foreach (var item in santa.GetInventoryItems())
+        //{
+        //    var iconGift = Instantiate(giftIconPrefab, inventoryPanel.transform);
+        //    iconGift.Setup(item.DestinationBuilding);
+        //}
+        StartCoroutine(ShowInventoryPanel());
+    }
+
+    private void UpdateSantaInventory()
+    {
+        DeleteChildrenFromInventoryPanel();
+        foreach (var item in listItemsInventory)
         {
             var iconGift = Instantiate(giftIconPrefab, inventoryPanel.transform);
             iconGift.Setup(item.DestinationBuilding);
         }
-        StartCoroutine(ShowInventoryPanel());
     }
 
     private IEnumerator ShowInventoryPanel()

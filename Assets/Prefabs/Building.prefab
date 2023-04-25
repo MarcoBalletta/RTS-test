@@ -192,3 +192,5 @@ MonoBehaviour:
   destinationTransform: {fileID: 685285744}
   entityRenderer: {fileID: 4558327571062556034}
   itemsToDeliver: []
+  layerClickable: 8
+  layerNotClickable: 11

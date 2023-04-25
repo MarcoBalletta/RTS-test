@@ -76,4 +76,9 @@ public abstract class Entity : MonoBehaviour, IPointerDownHandler, ILeftClickabl
     {
         gameObject.SetActive(false);
     }
+
+    protected virtual void OnDestroy()
+    {
+        GameManager.instance.onEndGame -= DeactivateEntity;
+    }
 }

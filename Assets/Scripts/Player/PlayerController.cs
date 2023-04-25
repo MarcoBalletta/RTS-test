@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
             //    santaSelected.onAddMovementCommand(position2DSelected, trackerInstance.transform.position.y, entityClickable);
             //    Destroy(trackerInstance.gameObject, 0.1f);
             //}
+            //else santaSelected.onAddMovementCommand(position2DSelected, trackerInstance.transform.position.y, null);
             santaSelected.onAddMovementCommand(position2DSelected, trackerInstance.transform.position.y, null);
             ClearPositionValues();
             Destroy(trackerInstance.gameObject, 0.1f);
