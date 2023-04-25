@@ -34,5 +34,18 @@ public abstract class DestinationObject : MonoBehaviour, IRightClickableUp
         entityRenderer.material.SetFloat(Constants.SHADER_BOOLEAN_HIGHLIGHT_NAME, 0.0f);
     }
 
+    public void TemporaryHighlight()
+    {
+        Debug.Log("Debug Temporary");
+        if (entityRenderer.material.GetFloat(Constants.SHADER_BOOLEAN_HIGHLIGHT_NAME) == 0) StartCoroutine(CoroutineHighlight());
+    }
+
+    private IEnumerator CoroutineHighlight()
+    {
+        Highlight();
+        yield return new WaitForSeconds(GameManager.instance.HighlightInfosTime);
+        BackToNormal();
+    }
+
     public abstract void EntityArrivedAtDestinationObject(SantaController santa);
 }

@@ -7,7 +7,7 @@ public class PersistentSingleton<T> : MonoBehaviour where T: Component
     public static T instance;
 
     // Start is called before the first frame update
-    void Awake()
+    protected virtual void Awake()
     {
         if (instance == null)
         {

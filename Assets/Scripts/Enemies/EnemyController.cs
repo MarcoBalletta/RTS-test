@@ -21,8 +21,9 @@ public class EnemyController : Entity
     public OnChaseEnemy onChaseEnemy;
     [SerializeField] private float aggroLostDistance;
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         CheckOrAddComponent(out stateManager);
         onPatrol += Patrol;
         onChaseEnemy += Chase;
@@ -80,6 +81,7 @@ public class EnemyController : Entity
 
     public void Chase()
     {
+        if(GameManager.instance?.onBefanaFoundSanta != null) GameManager.instance?.onBefanaFoundSanta(enemyDetected, this);
         StartCoroutine(ChaseCoroutine());
     }
 

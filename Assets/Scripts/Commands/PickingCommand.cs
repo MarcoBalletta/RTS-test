@@ -8,6 +8,7 @@ public class PickingCommand : Command
     {
         Debug.Log("Picking");
         destinationObject.EntityArrivedAtDestinationObject(player);
+        GameManager.instance.onGiftPicked();
     }
 
 }

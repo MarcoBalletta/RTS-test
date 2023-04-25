@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     private void ClickedLeftButton(InputAction.CallbackContext obj)
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, 1000, layerClickLeft,  QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000, layerClickLeft,  QueryTriggerInteraction.Collide))
         {
             hit.collider.gameObject.TryGetComponent(out ILeftClickable entityClickable);
             if (entityClickable != null) entityClickable.LeftClicked(this, hit.point);

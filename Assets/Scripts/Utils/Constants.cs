@@ -17,4 +17,9 @@ public static class Constants
 
     public const string SCENE_GAME_NAME = "Game";
     public const string MENU_GAME_NAME = "Menu";
+
+    public const string UI_START_GAME_TEXT = "Start!";
+    public const string UI_BEFANA_CAUGHT_SANTA_TEXT = "Befana caught a santa!";
+    public const string UI_GIFT_DELIVERED_TEXT = "Santa delivered a gift!";
+    public const string UI_GIFT_PICKED_TEXT = "Santa picked up a gift!";
 }

@@ -8,10 +8,10 @@ public class SpawnerEntities : Spawner<Entity>
 
     [SerializeField] private float minBaseOffset;
     [SerializeField] private float maxBaseOffset;
-    private NavMeshSurface navMesh;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         switch (elementToSpawnRetrieveDataFromGameManager)
         {
             case ETypeOfElementToSpawn.santa:
@@ -24,21 +24,28 @@ public class SpawnerEntities : Spawner<Entity>
         Spawn();
     }
 
-    public void Spawn()
+    protected override void Spawn()
     {
-        navMesh = FindObjectOfType<NavMeshSurface>();
+        
         for(int i = 0; i< numberToSpawn; i++)
         {
-            var element = Instantiate(elementToSpawn, GetRandomPosition(), Quaternion.identity);
+            var position = GetRandomPosition();
+            position.y = GetRandomHeight();
+            var element = Instantiate(elementToSpawn, position, Quaternion.identity);
+            switch (elementToSpawnRetrieveDataFromGameManager)
+            {
+                case ETypeOfElementToSpawn.santa:
+                    GameManager.instance.AddSantaToList((element as SantaController));
+                    break;
+                case ETypeOfElementToSpawn.befana:
+                    GameManager.instance.AddBefanaToList((element as EnemyController));
+                    break;
+            }
         }
     }
 
-    public Vector3 GetRandomPosition()
+    private float GetRandomHeight()
     {
-        var navmeshBounds = navMesh.navMeshData.sourceBounds;
-        var x = Random.Range(navmeshBounds.min.x, navmeshBounds.max.x);
-        var y = Random.Range(minBaseOffset, maxBaseOffset);
-        var z = Random.Range(navmeshBounds.min.z, navmeshBounds.max.z);
-        return new Vector3(x, y, z);
+        return Random.Range(minBaseOffset, maxBaseOffset);
     }
 }

@@ -10,6 +10,7 @@ public class SantaController : Entity
 
     private StateManagerSanta stateManager;
     private CommandHandler commandHandler;
+    new protected MovementComponentSanta movingComponent;
     private InventoryComponent inventoryComponent;
 
     public delegate void OnAddMovementCommand(Vector3 position, float baseOffset, DestinationObject clickedEntity);
@@ -21,6 +22,17 @@ public class SantaController : Entity
     public delegate void ReachedDestination();
     public ReachedDestination onReachedDestination;
 
+    protected override void Awake()
+    {
+        CheckOrAddComponent(out colliderEntity);
+        CheckOrAddComponent(out rigidbodyEntity);
+        CheckOrAddComponent(out movingComponent);
+    }
+    protected override void OnEnable()
+    {
+        movingComponent.Agent.baseOffset = transform.position.y;
+    }
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -30,7 +42,10 @@ public class SantaController : Entity
         CheckOrAddComponent(out inventoryComponent);
     }
 
-
+    public override float CalculateTimingLerpAdjustingHeight(float baseOffset)
+    {
+        return Vector3.Distance(transform.position, new Vector3(movingComponent.Agent.destination.x, baseOffset, movingComponent.Agent.destination.z)) / speed * Time.deltaTime;
+    }
 
     public override void OnPointerDown(PointerEventData eventData)
     {
@@ -45,12 +60,12 @@ public class SantaController : Entity
     {
         base.LeftClicked(player, position);
         Debug.Log("Clicked on Santa : " + this.name);
-        if(GameManager.instance?.onSantaSelectedInfos != null) GameManager.instance?.onSantaSelectedInfos(this);
+        GameManager.instance?.onSantaSelectedInfos(this);
     }
 
     public void CheckGiftForBuilding(Building building)
     {
-        foreach(var item in inventoryComponent.items)
+        foreach(var item in inventoryComponent.items.ToArray())
         {
             if(item is PickableItem && building.CheckIfItemIsInListItemsToDeliver(item))
             {
@@ -67,5 +82,10 @@ public class SantaController : Entity
             inventoryComponent.PickupItem(item);
             item.gameObject.SetActive(false);
         }
+    }
+
+    public List<PickableItem> GetInventoryItems()
+    {
+        return inventoryComponent.items;
     }
 }

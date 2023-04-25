@@ -8,5 +8,6 @@ public class DeliveringCommand : Command
     {
         Debug.Log("Delivering");
         destinationObject.EntityArrivedAtDestinationObject(player);
+        GameManager.instance.onGiftDelivered();
     }
 }

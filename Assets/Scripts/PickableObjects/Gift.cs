@@ -13,5 +13,6 @@ public class Gift : PickableItem, ILeftClickable
 
     public override void LeftClicked(PlayerController player, Vector3 clickPosition)
     {
+        base.LeftClicked(player, clickPosition);
     }
 }

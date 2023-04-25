@@ -29,7 +29,12 @@ public abstract class Entity : MonoBehaviour, IPointerDownHandler, ILeftClickabl
         CheckOrAddComponent(out movingComponent);
         CheckOrAddComponent(out colliderEntity);
         CheckOrAddComponent(out rigidbodyEntity);
+    }
+
+    protected virtual void OnEnable()
+    {
         movingComponent.Agent.baseOffset = transform.position.y;
+        GameManager.instance.onEndGame += DeactivateEntity;
     }
 
     protected virtual void Start()
@@ -57,7 +62,7 @@ public abstract class Entity : MonoBehaviour, IPointerDownHandler, ILeftClickabl
         entityRenderer.material.SetFloat(Constants.SHADER_BOOLEAN_HIGHLIGHT_NAME, 0.0f);
     }
 
-    public float CalculateTimingLerpAdjustingHeight(float baseOffset)
+    public virtual float CalculateTimingLerpAdjustingHeight(float baseOffset)
     {
         return Vector3.Distance(transform.position, new Vector3(movingComponent.Agent.destination.x, baseOffset, movingComponent.Agent.destination.z)) / speed * Time.deltaTime;
     }
@@ -65,5 +70,10 @@ public abstract class Entity : MonoBehaviour, IPointerDownHandler, ILeftClickabl
     public virtual void LeftClicked(PlayerController player, Vector3 position)
     {
         
+    }
+
+    private void DeactivateEntity(bool victory)
+    {
+        gameObject.SetActive(false);
     }
 }

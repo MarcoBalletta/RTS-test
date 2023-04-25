@@ -15,6 +15,7 @@ public class InventoryComponent : MonoBehaviour
     public void PickupItem(PickableItem item)
     {
         items.Add(item);
+        items.TrimExcess();
     }
 
     public void DropItem(PickableItem item)

@@ -13,7 +13,7 @@ public class MovementComponent : MonoBehaviour
 
     public NavMeshAgent Agent { get => agent;}
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         controller = GetComponent<Entity>();
         agent = GetComponent<NavMeshAgent>();
